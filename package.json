@@ -1,0 +1,35 @@
+{
+  "name": "idraaak-gutenberg-checker",
+  "displayName": "Idraaak Gutenberg Checker",
+  "description": "Find unclosed, mismatched and malformed WordPress block comments in article source files.",
+  "version": "1.0.0",
+  "publisher": "nedal-dev",
+  "author": "Nedal Shabaan",
+  "license": "MIT",
+  "homepage": "https://idraaak.com/",
+  "repository": {"type": "git", "url": "https://github.com/nedal-dev/idraaak-gutenberg-checker.git"},
+  "bugs": {"url": "https://github.com/nedal-dev/idraaak-gutenberg-checker/issues"},
+  "engines": {"vscode": "^1.85.0"},
+  "categories": ["Linters"],
+  "keywords": ["wordpress", "gutenberg", "blocks", "html", "diagnostics"],
+  "main": "./src/extension.js",
+  "activationEvents": ["onLanguage:html"],
+  "extensionKind": ["workspace"],
+  "capabilities": {"virtualWorkspaces": true, "untrustedWorkspaces": {"supported": true}},
+  "contributes": {
+    "commands": [
+      {"command": "idraaakGutenberg.check", "title": "Check WordPress Block Comments", "category": "Idraaak"},
+      {"command": "idraaakGutenberg.clear", "title": "Clear Block Diagnostics", "category": "Idraaak"}
+    ],
+    "configuration": {
+      "title": "Idraaak Gutenberg Checker",
+      "properties": {
+        "idraaakGutenberg.autoCheck": {
+          "type": "boolean", "default": true, "scope": "resource",
+          "description": "Check open HTML documents on changes. Also recheck other documents checked with the command. Files without block comments receive no diagnostics."
+        }
+      }
+    }
+  },
+  "scripts": {"test": "node --test test/parser.test.js", "check": "node --check src/checker.js && node --check src/extension.js"}
+}
